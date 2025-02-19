@@ -15,14 +15,14 @@ class DeckFormViewModel: ObservableObject {
         image: nil
     )
     @Published var questions: [Question] = []
-//    @Published var question: Question = Question(
-//        questionType: .UNKNOWN,
-//        questionText: QuestionType.UNKNOWN.questionText,
-//        answers: ["","",""],
-//        correctAnswerIndex: -1,
-//        image: nil,
-//        deck: nil
-//    )
+    @Published var question: Question = Question(
+        questionType: .UNKNOWN,
+        questionText: QuestionType.UNKNOWN.questionText,
+        answers: ["","",""],
+        correctAnswerIndex: -1,
+        image: nil,
+        deck: nil
+    )
 
     @Published var isQuestionValid: Bool = false
     @Published var canSubmit: Bool = false

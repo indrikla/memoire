@@ -64,7 +64,7 @@ struct AnswerSelectionView: View {
 
 #Preview {
     AnswerSelectionView(
-        selectedOption: .constant(1),
+        selectedOption: .constant(-1),
         answers: .constant([""])
     )
 }

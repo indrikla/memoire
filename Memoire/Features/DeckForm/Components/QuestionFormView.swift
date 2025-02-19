@@ -9,7 +9,11 @@ import SwiftUI
 import PhotosUI
 
 struct QuestionFormView: View {
-    @Binding var question: Question
+    @State var questionType: QuestionType = .UNKNOWN
+    @State var questionText: String = ""
+    @State var correctAnswerIndex: Int = -1
+    @State var answers: [String] = [""]
+    @State var imageData: Data? = nil
     let questionIndex: Int
     @State private var photoPickerItem: PhotosPickerItem? = nil
 
@@ -28,18 +32,18 @@ struct QuestionFormView: View {
             HStack(alignment: .top, spacing: 36) {
                 VStack(alignment: .leading, spacing: 36) {
                     QuestionTypePickerView(
-                        selectedType: $question.questionType
+                        selectedType: $questionType
                     )
                     AnswerSelectionView(
-                        selectedOption: $question.correctAnswerIndex,
-                        answers: $question.answers
+                        selectedOption: $correctAnswerIndex,
+                        answers: $answers
                     )
                 }
                 Spacer()
                 
                 VStack(spacing: 24){
                     PhotosPicker(selection: $photoPickerItem, matching: .images) {
-                        EmptyCardComponent(imageData: $question.imageData)
+                        EmptyCardComponent(imageData: $imageData)
 
                     }
                     .frame(width: 280, height: .infinity)
@@ -47,7 +51,7 @@ struct QuestionFormView: View {
                         loadSelectedImage(newValue)
                     }
                     AppButton(title: "Save Question", color: .green, action: {
-                        addQuestionToArray
+                        
                     })
                 }
             }
@@ -62,7 +66,7 @@ struct QuestionFormView: View {
         guard let newValue = newValue else { return }
         Task {
             if let data = try? await newValue.loadTransferable(type: Data.self) {
-                question.imageData = data
+                imageData = data
             }
         }
     }
@@ -70,14 +74,6 @@ struct QuestionFormView: View {
 
 #Preview {
     QuestionFormView(
-        question: .constant(
-            Question(questionType: .WHO,
-                 questionText: "",
-                 answers: [""],
-                 correctAnswerIndex: 0,
-                 deck: nil
-                )
-        ),
         questionIndex: 1
     )
 }

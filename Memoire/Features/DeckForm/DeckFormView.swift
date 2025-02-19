@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct DeckFormView: View {
-    @EnvironmentObject var deckFormVM: DeckFormViewModel
+//    @EnvironmentObject var deckFormVM: DeckFormViewModel
     @State private var deck: Deck = Deck(title: "", image: nil)
+    @State private var questions: Int = 5
     
     var body: some View {
         ZStack{
@@ -21,16 +22,15 @@ struct DeckFormView: View {
                     title: "Setup Deck",
                     subtitle: "Add title and questions",
                     buttons: [
-                        AppButton(title: "Discard", color: .clear, type: .small, action: {}),
+                        AppButton(title: "Discard", color: .clear, type: .small, action: {
+                            
+                        }),
                         AppButton(
                             title: "Save",
                             color: .purple,
                             type: .small,
                             action: {
-                                deckFormVM.addDeck(
-                                    title: deck.title,
-                                    image: deck.imagePreview != nil ? UIImage(data: deck.imagePreview!) : nil
-                                )
+                                
                             }
                         )
 
@@ -58,8 +58,8 @@ struct DeckFormView: View {
                     
                     ScrollView{
                         VStack(spacing: 24) {
-                            ForEach(0..<deckFormVM.questions.count, id: \.self) { index in
-                                QuestionFormView(deckFormVM)
+                            ForEach(0..<questions, id: \.self) { index in
+                                QuestionFormView(questionIndex: index + 1)
                             }
                         }
                     }
@@ -75,11 +75,12 @@ struct DeckFormView: View {
     ZStack{
         AppColors.base
             .edgesIgnoringSafeArea(.all)
-        if let firstDeck = DeckViewModel(dataService: .shared).decks.first {
-            DeckFormView(
-                questionViewModel: QuestionViewModel(deck: firstDeck, dataService: .shared)
-            )
-            .environmentObject(DeckViewModel(dataService: .shared))
-        }
+        DeckFormView()
+//        if let firstDeck = DeckViewModel(dataService: .shared).decks.first {
+//            DeckFormView(
+//                questionViewModel: QuestionViewModel(deck: firstDeck, dataService: .shared)
+//            )
+//            .environmentObject(DeckViewModel(dataService: .shared))
+//        }
     }
 }
