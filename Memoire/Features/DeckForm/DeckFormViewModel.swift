@@ -58,10 +58,11 @@ class DeckFormViewModel: ObservableObject {
         }
     }
 
-    func addDeck(title: String, image: UIImage?) {
+    func addDeck(title: String, image: UIImage?) -> Deck {
         let newDeck = Deck(title: title, image: image)
         dataService.addDeck(newDeck)
         addQuestionsBatch(questions: questions)
+        return newDeck
     }
 
     func deleteDeck(_ deck: Deck) {

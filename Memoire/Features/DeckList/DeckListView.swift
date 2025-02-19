@@ -10,10 +10,11 @@ import SwiftData
 import Foundation
 
 struct DeckListView: View {
-    @StateObject var deckListVM = DeckListViewModel(dataService: .shared)
+    @StateObject var deckListViewModel = DeckListViewModel(dataService: .shared)
     @State private var currentPage = 0
+    @State private var isAddDeckPopUpVisible = false
+
     private let itemsPerPage = 6
-    
     private let columns = [
         GridItem(.flexible(), spacing: 36),
         GridItem(.flexible(), spacing: 36),
@@ -22,12 +23,12 @@ struct DeckListView: View {
     
     private var paginatedDecks: [Deck] {
         let startIndex = currentPage * itemsPerPage
-        let endIndex = min(startIndex + itemsPerPage, deckListVM.decks.count)
-        return Array(deckListVM.decks[startIndex..<endIndex])
+        let endIndex = min(startIndex + itemsPerPage, deckListViewModel.decks.count)
+        return Array(deckListViewModel.decks[startIndex..<endIndex])
     }
     
     private var totalPages: Int {
-        max(1, (deckListVM.decks.count + itemsPerPage - 1) / itemsPerPage)
+        max(1, (deckListViewModel.decks.count + itemsPerPage - 1) / itemsPerPage)
     }
 
     private func previousPage() {
@@ -43,10 +44,12 @@ struct DeckListView: View {
     }
 
     var body: some View {
-        ZStack{
+        ZStack {
             Image("HomeBackground")
                 .resizable()
                 .scaledToFill()
+                .ignoresSafeArea()
+
             HStack {
                 Button(action: previousPage) {
                     Image(systemName: "chevron.left")
@@ -59,7 +62,7 @@ struct DeckListView: View {
                 .background(AppColors.orange1)
                 .clipShape(Circle())
                 .opacity(currentPage > 0 ? 1 : 0)
-                
+
                 VStack(spacing: 36) {
                     LazyVGrid(columns: columns, spacing: 36) {
                         ForEach(paginatedDecks, id: \.id) { deck in
@@ -73,7 +76,9 @@ struct DeckListView: View {
                         if paginatedDecks.count < itemsPerPage {
                             let emptySlots = itemsPerPage - paginatedDecks.count
                             ForEach(0..<emptySlots, id: \.self) { _ in
-                                Button(action: {}) {
+                                Button(action: {
+                                    isAddDeckPopUpVisible = true
+                                }) {
                                     EmptyCardComponent(imageData: .constant(nil))
                                 }
                                 .frame(height: 240)
@@ -93,7 +98,7 @@ struct DeckListView: View {
                             }
                         }
                 )
-                
+
                 Button(action: nextPage) {
                     Image(systemName: "chevron.right")
                         .resizable()
@@ -105,6 +110,12 @@ struct DeckListView: View {
                 .background(AppColors.orange1)
                 .clipShape(Circle())
                 .opacity(currentPage < totalPages - 1 ? 1 : 0)
+            }
+
+            if isAddDeckPopUpVisible {
+                DeckPickerPopUp(isVisible: $isAddDeckPopUpVisible)
+                    .transition(.opacity.combined(with: .move(edge: .bottom)))
+                    .zIndex(2)
             }
         }
     }
