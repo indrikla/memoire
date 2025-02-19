@@ -17,7 +17,7 @@ struct HeaderComponent: View {
             VStack(alignment: .leading, spacing: 8){
                 Text(title)
                     .font(AppTypography.title)
-                    .foregroundStyle(AppColors.black)
+                    .foregroundStyle(AppColors.black1)
                 Text(subtitle)
                     .font(AppTypography.p1)
             }

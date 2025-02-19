@@ -65,7 +65,7 @@ struct AppButton: View, Identifiable {
         Button(action: action) {
             Text(title)
                 .font(color == .clear ? AppTypography.h1_1 : AppTypography.h1)
-                .foregroundStyle(color == .clear ? AppColors.black : .white)
+                .foregroundStyle(color == .clear ? AppColors.black1 : .white)
                 .padding()
                 .frame(maxWidth: type == .large ? .infinity : width, minHeight: height)
                 .background(backgroundColor)

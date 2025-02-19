@@ -13,9 +13,9 @@ class Deck {
     @Attribute(.unique) var id: UUID
     var title: String
     var imagePreview: Data?
-    @Relationship(deleteRule: .cascade) var questions: [Question] = []
+    @Relationship(deleteRule: .cascade) var questions: [Question]
 
-    init(title: String, image: UIImage? = nil, questions: [Question]) {
+    init(title: String, image: UIImage? = nil) {
         self.id = UUID()
         self.title = title
         self.imagePreview = image?.jpegData(compressionQuality: 0.8)

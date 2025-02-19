@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct QuestionTypePickerView: View {
-    @State private var selectedType: String? = "Who"
-
-    let questionTypes = ["Who", "Where", "What"]
+    @Binding var selectedType: QuestionType
 
     var body: some View {
         VStack(alignment: .leading){
             Text("Question type")
                 .font(AppTypography.p1b)
             HStack(spacing: 16){
-                ForEach(questionTypes, id: \.self) { type in
-                    QuestionTypeButton(title: type, isSelected: selectedType == type) {
+                ForEach(QuestionType.allCases.filter { $0 != .UNKNOWN }, id: \.self) { type in
+                    QuestionTypeButton(
+                        title: type.rawValue,
+                        isSelected: selectedType == type
+                    ) {
                         selectedType = type
                     }
                 }
@@ -39,7 +40,7 @@ struct QuestionTypeButton: View {
             HStack {
                 Text(title)
                     .frame(maxWidth: .infinity)
-                    .foregroundStyle(AppColors.black)
+                    .foregroundStyle(AppColors.black1)
                     .font(AppTypography.p2)
             }
             .padding(20)
@@ -55,7 +56,5 @@ struct QuestionTypeButton: View {
 }
 
 #Preview {
-    QuestionTypePickerView()
+    QuestionTypePickerView(selectedType: .constant(.WHO))
 }
-
-

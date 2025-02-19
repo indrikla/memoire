@@ -8,19 +8,19 @@
 import SwiftUI
 
 struct AnswerSelectionView: View {
-    @State private var selectedOption: Int? = nil
-    @State private var inputTexts: [Int: String] = [:]
-    
+    @Binding var selectedOption: Int
+    @Binding var answers: [String]
+
     var body: some View {
-        VStack(alignment: .leading, spacing: 20){
-            VStack(alignment: .leading, spacing: 8){
+        VStack(alignment: .leading, spacing: 20) {
+            VStack(alignment: .leading, spacing: 8) {
                 Text("Answer")
                     .font(AppTypography.p1b)
                 Text("Type and select the right option")
                     .font(AppTypography.p1)
             }
             VStack(alignment: .leading, spacing: 16) {
-                ForEach(1..<4, id: \.self) { index in
+                ForEach(0..<3, id: \.self) { index in
                     HStack {
                         Button(action: {
                             selectedOption = index
@@ -29,9 +29,21 @@ struct AnswerSelectionView: View {
                                 .foregroundColor(selectedOption == index ? .blue : .gray)
                         }
 
-                        TextField("Input Answer Option \(index) Here...", text: Binding(
-                            get: { inputTexts[index, default: ""] },
-                            set: { inputTexts[index] = $0 }
+                        TextField("Input Answer Option \(index + 1) Here...", text: Binding(
+                            get: {
+                                if index < answers.count {
+                                    return answers[index]
+                                } else {
+                                    return ""
+                                }
+                            },
+                            set: { newValue in
+                                if index < answers.count {
+                                    answers[index] = newValue
+                                } else {
+                                    answers.append(newValue)
+                                }
+                            }
                         ))
                         .padding(20)
                         .background(AppColors.base)
@@ -49,6 +61,10 @@ struct AnswerSelectionView: View {
     }
 }
 
+
 #Preview {
-    AnswerSelectionView()
+    AnswerSelectionView(
+        selectedOption: .constant(1),
+        answers: .constant([""])
+    )
 }

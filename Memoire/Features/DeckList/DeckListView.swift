@@ -10,7 +10,7 @@ import SwiftData
 import Foundation
 
 struct DeckListView: View {
-    @StateObject private var deckViewModel: DeckViewModel = DeckViewModel(dataService: .shared)
+    @StateObject var deckListVM = DeckListViewModel(dataService: .shared)
     @State private var currentPage = 0
     private let itemsPerPage = 6
     
@@ -22,12 +22,12 @@ struct DeckListView: View {
     
     private var paginatedDecks: [Deck] {
         let startIndex = currentPage * itemsPerPage
-        let endIndex = min(startIndex + itemsPerPage, deckViewModel.decks.count)
-        return Array(deckViewModel.decks[startIndex..<endIndex])
+        let endIndex = min(startIndex + itemsPerPage, deckListVM.decks.count)
+        return Array(deckListVM.decks[startIndex..<endIndex])
     }
     
     private var totalPages: Int {
-        max(1, (deckViewModel.decks.count + itemsPerPage - 1) / itemsPerPage)
+        max(1, (deckListVM.decks.count + itemsPerPage - 1) / itemsPerPage)
     }
 
     private func previousPage() {
@@ -63,17 +63,20 @@ struct DeckListView: View {
                 VStack(spacing: 36) {
                     LazyVGrid(columns: columns, spacing: 36) {
                         ForEach(paginatedDecks, id: \.id) { deck in
-                            DeckComponent(
-                                title: deck.title,
-                                image: deck.imagePreview != nil ? UIImage(data: deck.imagePreview!) : nil
-                            )
+                            Button(action: {}) {
+                                DeckComponent(
+                                    title: deck.title,
+                                    image: deck.imagePreview != nil ? UIImage(data: deck.imagePreview!) : nil
+                                )
+                            }
                         }
                         if paginatedDecks.count < itemsPerPage {
                             let emptySlots = itemsPerPage - paginatedDecks.count
                             ForEach(0..<emptySlots, id: \.self) { _ in
                                 Button(action: {}) {
-                                    EmptyCardComponent()
+                                    EmptyCardComponent(imageData: .constant(nil))
                                 }
+                                .frame(height: 240)
                             }
                         }
                     }
