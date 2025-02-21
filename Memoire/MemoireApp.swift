@@ -12,7 +12,7 @@ import SwiftData
 struct MemoireApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootView()
         }
     }
 }

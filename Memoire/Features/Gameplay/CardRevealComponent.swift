@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CardRevealComponent: View {
-    @State private var flippedCards: Set<String> = []
+    @Binding var flippedCards: Set<String>
 
     let rows = 3
     let cols = 3
@@ -22,6 +22,7 @@ struct CardRevealComponent: View {
                         CardView(isFlipped: flippedCards.contains(cardID))
                             .onTapGesture {
                                 flipCard(cardID)
+                                print("Card Flipped \(cardID)")
                             }
                     }
                 }
@@ -36,5 +37,5 @@ struct CardRevealComponent: View {
 }
 
 #Preview {
-    CardRevealComponent()
+    CardRevealComponent(flippedCards: .constant([]))
 }

@@ -23,8 +23,11 @@ struct HeaderComponent: View {
             }
             Spacer()
             HStack(spacing: 32) {
-                ForEach(buttons) { button in
-                    AppButton(title: button.title, color: button.color, type: button.type, action: button.action)
+                if (buttons.count != 0) {
+                    ForEach(buttons) { button in
+                        
+                        AppButton(title: button.title, color: button.color, type: button.type, isDisabled: button.isDisabled, action: button.action)
+                    }
                 }
             }
         }

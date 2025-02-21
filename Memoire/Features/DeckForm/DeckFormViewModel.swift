@@ -10,20 +10,8 @@ import SwiftUI
 import Foundation
 
 class DeckFormViewModel: ObservableObject {
-    @Published var deck: Deck = .init(
-        title: "",
-        image: nil
-    )
+    @Published var deck: Deck = .init(title: "")
     @Published var questions: [Question] = []
-    @Published var question: Question = Question(
-        questionType: .UNKNOWN,
-        questionText: QuestionType.UNKNOWN.questionText,
-        answers: ["","",""],
-        correctAnswerIndex: -1,
-        image: nil,
-        deck: nil
-    )
-
     @Published var isQuestionValid: Bool = false
     @Published var canSubmit: Bool = false
     
@@ -31,6 +19,21 @@ class DeckFormViewModel: ObservableObject {
 
     init(dataService: SwiftDataService) {
         self.dataService = dataService
+    }
+    
+    func addDeck(title: String, image: UIImage?) -> Deck {
+        let newDeck = Deck(title: title, image: image)
+        dataService.addDeck(newDeck)
+        self.deck = newDeck
+        return newDeck
+    }
+
+    func deleteDeck(_ deck: Deck) {
+        dataService.deleteDeck(deck)
+    }
+    
+    func addImagePreview(_ deck: Deck, image: UIImage?) {
+        dataService.addImagePreview(deck, image: image)
     }
     
     func addQuestionToArray(questionType: QuestionType, questionText: String, answers: [String], correctAnswerIndex: Int, image: UIImage?) {
@@ -45,30 +48,17 @@ class DeckFormViewModel: ObservableObject {
         questions.append(newQuestion)
     }
 
-
     func deleteQuestion(_ question: Question) {
         dataService.deleteQuestion(from: deck, question: question)
         questions = deck.questions
     }
     
-    func addQuestionsBatch(questions: [Question]) {
+    func saveQuestionToDeck(deck: Deck, questions: [Question]) {
         for q in questions {
             dataService.addQuestion(to: deck, question: q)
             deck.questions.append(q)
         }
     }
-
-    func addDeck(title: String, image: UIImage?) -> Deck {
-        let newDeck = Deck(title: title, image: image)
-        dataService.addDeck(newDeck)
-        addQuestionsBatch(questions: questions)
-        return newDeck
-    }
-
-    func deleteDeck(_ deck: Deck) {
-        dataService.deleteDeck(deck)
-    }
-    
 }
 
 //extension Deck {

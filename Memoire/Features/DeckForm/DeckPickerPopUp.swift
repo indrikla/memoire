@@ -7,19 +7,17 @@
 
 import SwiftUI
 
-
 struct DeckPickerPopUp: View {
     @Binding var isVisible: Bool
+    @EnvironmentObject private var router: Router
 
     var body: some View {
         if isVisible {
             ZStack {
-                // Full-screen black overlay
                 Color.black.opacity(0.8)
                     .edgesIgnoringSafeArea(.all)
-                    .onTapGesture { isVisible = false } // Tap outside to dismiss
+                    .onTapGesture { isVisible = false }
 
-                // Popup Content
                 VStack(alignment: .leading, spacing: 42) {
                     HeaderComponent(
                         title: "Add New Deck",
@@ -31,10 +29,15 @@ struct DeckPickerPopUp: View {
                         ]
                     )
                     VStack(spacing: 12) {
-                        AppButton(title: "Custom", color: .green, type: .large, action: {})
-                        AppButton(title: "Animal", color: .green, type: .large, action: {})
-                        AppButton(title: "People", color: .green, type: .large, action: {})
-                        AppButton(title: "Food", color: .green, type: .large, action: {})
+                        AppButton(title: "Custom", color: .green, type: .large, height: 90, action: {
+                            router.navigate(to: .deckInit)
+                        })
+                        AppButton(title: "Animal", color: .green, type: .large, height: 90, action: {
+                            
+                        })
+                        AppButton(title: "Food", color: .green, type: .large, height: 90, action: {
+                            
+                        })
                     }
                 }
                 .padding(.horizontal, 34)
@@ -44,10 +47,12 @@ struct DeckPickerPopUp: View {
                 .cornerRadius(24)
                 .transition(.opacity.combined(with: .move(edge: .bottom)))
                 .zIndex(2)
+                
             }
         }
     }
 }
+
 
 #Preview {
     DeckPickerPopUp(isVisible: .constant(true))

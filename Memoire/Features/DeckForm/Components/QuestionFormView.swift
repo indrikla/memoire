@@ -9,6 +9,7 @@ import SwiftUI
 import PhotosUI
 
 struct QuestionFormView: View {
+//    var question: Question
     @State var questionType: QuestionType = .UNKNOWN
     @State var questionText: String = ""
     @State var correctAnswerIndex: Int = -1
@@ -50,9 +51,6 @@ struct QuestionFormView: View {
                     .onChange(of: photoPickerItem) { _, newValue in
                         loadSelectedImage(newValue)
                     }
-                    AppButton(title: "Save Question", color: .green, action: {
-                        
-                    })
                 }
             }
             .padding(40)

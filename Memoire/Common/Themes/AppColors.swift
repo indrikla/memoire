@@ -11,6 +11,8 @@ enum AppColors {
     static let base = Color("base")
     static let brown1 = Color("brown1")
     static let brown2 = Color("brown2")
+    static let brown3 = Color("brown3")
+    
     static let black1 = Color("black1")
     static let grey = Color("grey")
     

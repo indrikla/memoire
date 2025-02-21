@@ -50,6 +50,13 @@ class SwiftDataService {
         modelContext.delete(deck)
         saveContext()
     }
+    
+    func addImagePreview(_ deck: Deck, image: UIImage?) {
+        deck.imagePreview = image?.jpegData(compressionQuality: 0.8)
+        print("masuk sini untuk \(deck.title)")
+        saveContext()
+    }
+
 
     func addQuestion(to deck: Deck, question: Question) {
         deck.questions.append(question)

@@ -8,17 +8,23 @@
 import SwiftUI
 
 struct StartView: View {
+    @EnvironmentObject private var router: Router
+
     var body: some View {
         ZStack{
             Image("HomeBackground")
                 .resizable()
                 .scaledToFill()
             VStack(alignment: .center, spacing: 12){
-                AppButton(title: "Start", color:.green, type:.medium, action: {})
-                AppButton(title: "How to Play",  color:.orange, type:.medium, action: {})
+                Image("Logo")
+                AppButton(title: "Start", color:.green, type:.medium, action: {
+                    router.navigate(to: .deckList)
+                })
+                AppButton(title: "How to Play",  color:.orange, type:.medium, action: {
+                    
+                })
             }
         }
-        
     }
 }
 

@@ -6,81 +6,187 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct DeckFormView: View {
-//    @EnvironmentObject var deckFormVM: DeckFormViewModel
-    @State private var deck: Deck = Deck(title: "", image: nil)
-    @State private var questions: Int = 5
+    let deck: Deck
+    @ObservedObject var deckFormViewModel: DeckFormViewModel
+    @EnvironmentObject private var router: Router
+    
+    @State var questionType: QuestionType = .UNKNOWN
+    @State var questionText: String = ""
+    @State var correctAnswerIndex: Int = -1
+    @State var answers: [String] = [""]
+    @State var imageData: Data? = nil
+    @State private var showValidationAlert = false
+    private var validationErrors: [String] {
+        var errors: [String] = []
+        
+        if questionType == .UNKNOWN {
+            errors.append("Please select a question type.")
+        }
+        
+        if answers.contains(where: { $0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }) {
+            errors.append("All answer fields must be filled.")
+        }
+        
+        if correctAnswerIndex < 0 {
+            errors.append("Please select a correct answer.")
+        }
+        
+        if imageData == nil {
+            errors.append("Please upload an image.")
+        }
+        
+        return errors
+    }
     
     var body: some View {
         ZStack{
             AppColors.base
                 .edgesIgnoringSafeArea(.all)
             
-            VStack(spacing: 32){
-                HeaderComponent(
-                    title: "Setup Deck",
-                    subtitle: "Add title and questions",
-                    buttons: [
-                        AppButton(title: "Discard", color: .clear, type: .small, action: {
-                            
-                        }),
-                        AppButton(
-                            title: "Save",
-                            color: .purple,
-                            type: .small,
-                            action: {
-                                
-                            }
-                        )
+            VStack(spacing: 16){
+                HStack(alignment: .center){
+                    HeaderComponent(
+                        title: deck.title,
+                        subtitle: "Add title and answer to each pictures",
+                        buttons: [
+                            AppButton(title: "Discard", color: .clear, type: .small,
+                                      action: {
+                                          deckFormViewModel.deleteDeck(deck)
+                                          router.navigate(to: .deckList)
+                            }),
+                            AppButton(
+                                title: "Create Deck",
+                                color: .orange,
+                                type: .medium,
+                                isDisabled: deckFormViewModel.questions.isEmpty,
+                                action: {                                    deckFormViewModel.saveQuestionToDeck(
+                                        deck: deck,
+                                        questions: deckFormViewModel.questions
+                                    )
+                                    router.navigate(to: .gameplay(deck: deck))
+                                }
+                            )
+//                            .id(deckFormViewModel.questions.count)
 
-                    ]
-                )
-                VStack(spacing: 16) {
-                    HStack(alignment: .center){
-                        TextField("Insert Deck Title...", text: $deck.title)
-                            .font(AppTypography.p0b)
-                            .foregroundStyle(.white)
-                        Spacer()
-                        AppButton(
-                            title: "Add Question",
-                            color: .orange,
-                            type: .medium,
-                            height:56,
-                            action: {
-                                // TODO
-                        })
-                    }
-                    .padding(24)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .background(AppColors.green1)
-                    .cornerRadius(16)
+                        ]
+                    )
+                }
+                .padding(.horizontal, 25)
+                .frame(width: .infinity, height: 125)
+                .background(AppColors.brown2)
+                .cornerRadius(16)
+                
+                VStack(alignment:.trailing ,spacing: 16) {
                     
-                    ScrollView{
-                        VStack(spacing: 24) {
-                            ForEach(0..<questions, id: \.self) { index in
-                                QuestionFormView(questionIndex: index + 1)
+                    HStack(alignment: .center, spacing: 16) {
+                        VStack(alignment: .trailing, spacing: 0) {
+                            Text(String(deckFormViewModel.questions.count + 1))
+                                .font(AppTypography.p1b)
+                            Spacer()
+                        }
+                        .padding(.horizontal, 32)
+                        .padding(.vertical, 24)
+                        .background(.white)
+                        .cornerRadius(16)
+                        
+                        HStack(alignment: .top, spacing: 36) {
+                            VStack(alignment: .leading, spacing: 36) {
+                                QuestionTypePickerView(
+                                    selectedType: $questionType
+                                )
+                                AnswerSelectionView(
+                                    selectedOption: $correctAnswerIndex,
+                                    answers: $answers
+                                )
+                            }
+                            Spacer()
+                            
+                            VStack(alignment: .leading, spacing: 24){
+                                Text("Picture")
+                                    .font(AppTypography.p1b)
+                                PhotosPicker(selection: $photoPickerItem, matching: .images) {
+                                    EmptyCardComponent(imageData: $imageData)
+
+                                }
+                                .frame(width: 280)
+                                .onChange(of: photoPickerItem) { _, newValue in
+                                    loadSelectedImage(newValue)
+                                }
                             }
                         }
+                        .padding(40)
+                        .background(.white)
+                        .cornerRadius(24)
+                    }
+                    .frame(height: 550)
+                    
+                    HStack(spacing: 24){
+                        Text("Total questions: \(deckFormViewModel.questions.count)")
+                            .font(AppTypography.p1b)
+                        Spacer()
+                        AppButton(
+                            title: "Save Question",
+                            color: .purple,
+                            type: .medium,
+                            action: {
+                                if validationErrors.isEmpty {
+                                    let image = imageData.flatMap { UIImage(data: $0) }
+                                    deckFormViewModel.addQuestionToArray(
+                                        questionType: questionType,
+                                        questionText: questionType.questionText,
+                                        answers: answers,
+                                        correctAnswerIndex: correctAnswerIndex,
+                                        image: image
+                                    )
+                                    if deckFormViewModel.questions.count == 1 {
+                                        deckFormViewModel.addImagePreview(deck, image: image)
+                                    }
+
+                                    questionType = .UNKNOWN
+                                    questionText = ""
+                                    correctAnswerIndex = -1
+                                    answers = [""]
+                                    imageData = nil
+                                    photoPickerItem = nil
+                                } else {
+                                    showValidationAlert = true
+                                }
+                            }
+                        )
+                        .alert("Invalid Input", isPresented: $showValidationAlert) {
+                            Button("OK", role: .cancel) { }
+                        } message: {
+                            Text(validationErrors.joined(separator: "\n"))
+                        }
+
                     }
                 }
             }
             .padding(.horizontal, 36)
-            .padding(.top, 32)
+            .padding(.top, 16)
+        }
+        .navigationBarBackButtonHidden()
+    }
+    
+    @State private var photoPickerItem: PhotosPickerItem? = nil
+    private func loadSelectedImage(_ newValue: PhotosPickerItem?) {
+        guard let newValue = newValue else { return }
+        Task {
+            if let data = try? await newValue.loadTransferable(type: Data.self) {
+                imageData = data
+            }
         }
     }
 }
+
 
 #Preview {
     ZStack{
         AppColors.base
             .edgesIgnoringSafeArea(.all)
-        DeckFormView()
-//        if let firstDeck = DeckViewModel(dataService: .shared).decks.first {
-//            DeckFormView(
-//                questionViewModel: QuestionViewModel(deck: firstDeck, dataService: .shared)
-//            )
-//            .environmentObject(DeckViewModel(dataService: .shared))
-//        }
+        DeckFormView(deck: Deck(title: "My Deeckkk"), deckFormViewModel: DeckFormViewModel(dataService: .shared))
     }
 }
