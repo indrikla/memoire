@@ -46,7 +46,7 @@ struct CorrectAnwerPopUp: View {
                             Text("It's \(correctAnswer)!")
                                 .font(AppTypography.title)
                                 .foregroundStyle(AppColors.black1)
-                            Text("Tell a story about \(correctAnswer). \n What’s your favorite memory about \(correctAnswer)?")
+                            Text(SuccessQuestion.getQuestion(for: correctAnswer))
                                 .font(AppTypography.p1)
                         }
                         .multilineTextAlignment(.center)
