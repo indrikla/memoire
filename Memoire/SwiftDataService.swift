@@ -44,7 +44,6 @@ class SwiftDataService {
         saveContext()
     }
 
-
     func addQuestion(to deck: Deck, question: Question) {
         deck.questions.append(question)
         saveContext()
@@ -52,6 +51,11 @@ class SwiftDataService {
 
     func deleteQuestion(from deck: Deck, question: Question) {
         deck.questions.removeAll { $0.id == question.id }
+        saveContext()
+    }
+    
+    func deleteAllQuestion(from deck: Deck, questions: [Question]) {
+        deck.questions.removeAll()
         saveContext()
     }
 

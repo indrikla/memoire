@@ -22,4 +22,15 @@ class DeckListViewModel: ObservableObject {
     func fetchDecks() {
         decks = dataService.fetchDecks()
     }
+    
+    func doesDeckExist(_ deck: Deck) -> Bool {
+        return decks.contains { $0.id == deck.id }
+    }
+
+    func deleteDeck(_ deck: Deck) {
+        print("\(deck.title) with \(deck.questions) deleted")
+        dataService.deleteAllQuestion(from: deck, questions: deck.questions)
+        dataService.deleteDeck(deck)
+        decks = decks.filter { $0.id != deck.id }
+    }
 }

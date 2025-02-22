@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct GameplayView: View {
-    let deck: Deck
+    var deck: Deck
+    @ObservedObject var deckListViewModel: DeckListViewModel
     @State private var currentQuestionIndex = 0
     @State private var hiddenAnswers: Set<Int> = []
     @State private var isCorrectAnswerPopUpVisible: Bool = false
@@ -36,76 +37,100 @@ struct GameplayView: View {
                         })
                     ]
                 )
-                
                 HStack(alignment: .top, spacing: 48) {
-                    if deck.questions.indices.contains(currentQuestionIndex) {
-                        let question = deck.questions[currentQuestionIndex]
-                        
-                        ZStack {
-                            if let imageData = question.imageData, let uiImage = UIImage(data: imageData) {
-                                Image(uiImage: uiImage)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 600, height: 600)
-                                    .clipped()
-                                    .onAppear {
-                                        imagePreview = uiImage
-                                    }
-                            } else {
-                                Image("Placeholder")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 600, height: 600)
-                                    .clipped()
-                            }
-                            CardRevealComponent(flippedCards: $flippedCards)
-                                .id(currentQuestionIndex)
-                        }
-                        
-                        VStack(alignment: .center, spacing: 40) {
-                            VStack(spacing: 12) {
-                                Text("Question no. \(currentQuestionIndex + 1) of \(deck.questions.count)")
-                                    .font(AppTypography.p1)
-                                Text(question.questionText)
+                    if deckListViewModel.doesDeckExist(deck) {
+                        if deck.questions.isEmpty {
+                            VStack {
+                                Text("No questions yet!")
                                     .font(AppTypography.title)
+                                    .foregroundStyle(AppColors.black1)
+                                
+                                AppButton(title: "Add questions here", color: .purple, type: .large, action: {
+                                    router.navigate(to: .deckForm(deck: deck))
+                                })
                             }
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .padding(24)
+                            .background(AppColors.brown2)
+                            .cornerRadius(24)
+                        } else if deck.questions.indices.contains(currentQuestionIndex) {
+                            let question = deck.questions[currentQuestionIndex]
 
-                            VStack(spacing: 24) {
-                                ForEach(Array(question.answers.enumerated()), id: \.element) { index, answer in
-                                    if !hiddenAnswers.contains(index) {
-                                        AppButton(
-                                            title: answer,
-                                            color: .green,
-                                            type: .large,
-                                            height: 90,
-                                            action: {
-                                                if index != question.correctAnswerIndex {
-                                                    hiddenAnswers.insert(index)
-                                                } else {
-                                                    print("Correct Answer Selected: \(answer)")
-                                                    correctAnswer = answer
-                                                    isLastQuestion = (currentQuestionIndex == deck.questions.count - 1)
-                                                    isCorrectAnswerPopUpVisible = true
+                            ZStack {
+                                if let imageData = question.imageData, let uiImage = UIImage(data: imageData) {
+                                    Image(uiImage: uiImage)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 600, height: 600)
+                                        .clipped()
+                                        .onAppear {
+                                            imagePreview = uiImage
+                                        }
+                                } else {
+                                    Image("Placeholder")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 600, height: 600)
+                                        .clipped()
+                                }
+                                CardRevealComponent(flippedCards: $flippedCards)
+                                    .id(currentQuestionIndex)
+                            }
+                            
+                            VStack(alignment: .center, spacing: 40) {
+                                VStack(spacing: 12) {
+                                    Text("Question no. \(currentQuestionIndex + 1) of \(deck.questions.count)")
+                                        .font(AppTypography.p1)
+                                    Text(question.questionText)
+                                        .font(AppTypography.title)
+                                }
+
+                                VStack(spacing: 24) {
+                                    ForEach(Array(question.answers.enumerated()), id: \.offset) { index, answer in
+                                        if !hiddenAnswers.contains(index) {
+                                            AppButton(
+                                                title: answer,
+                                                color: .green,
+                                                type: .large,
+                                                height: 90,
+                                                action: {
+                                                    if index != question.correctAnswerIndex {
+                                                        hiddenAnswers.insert(index)
+                                                    } else {
+                                                        print("Correct Answer Selected: \(answer)")
+                                                        correctAnswer = answer
+                                                        isLastQuestion = (currentQuestionIndex == deck.questions.count - 1)
+                                                        isCorrectAnswerPopUpVisible = true
+                                                    }
                                                 }
-                                            }
-                                        )
+                                            )
+                                        }
                                     }
                                 }
+                                .onChange(of: currentQuestionIndex) {
+                                    hiddenAnswers.removeAll()
+                                    flippedCards.removeAll()
+                                    isExplosionVisible = true
+                                    
+                                    if deck.questions.indices.contains(currentQuestionIndex) {
+                                        let newQuestion = deck.questions[currentQuestionIndex]
+                                        if let newImageData = newQuestion.imageData, let newUIImage = UIImage(data: newImageData) {
+                                            imagePreview = newUIImage
+                                        } else {
+                                            imagePreview = nil
+                                        }
+                                    }
+                                }
+                                Spacer()
                             }
-                            .onChange(of: currentQuestionIndex) {
-                                hiddenAnswers.removeAll()
-                                flippedCards.removeAll()
-                                isExplosionVisible = true
-                            }
-
-                            Spacer()
+                            .padding(.vertical, 24)
+                            .padding(24)
+                            .background(AppColors.brown2)
+                            .cornerRadius(24)
                         }
-                        .padding(.vertical, 24)
-                        .padding(24)
-                        .background(AppColors.brown2)
-                        .cornerRadius(24)
                     }
                 }
+
             }
             .padding(36)
             
@@ -131,5 +156,5 @@ struct GameplayView: View {
 
 
 #Preview {
-    GameplayView(deck: Deck(title: ""))
+    GameplayView(deck: Deck(title: ""), deckListViewModel: DeckListViewModel(dataService: .shared))
 }

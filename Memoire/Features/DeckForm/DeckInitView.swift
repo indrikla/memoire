@@ -52,8 +52,13 @@ struct DeckInitView: View {
                                   type: .large,
                                   action: {
                             if isTitleValid {
-                                let newDeck = deckFormViewModel.addDeck(title: title, image: nil)
-                                router.navigate(to: .deckForm(deck: newDeck))
+                                if let placeholderImage = UIImage(named: "Placeholder") {
+                                    let newDeck = deckFormViewModel.addDeck(title: title, image: placeholderImage)
+                                    router.navigate(to: .deckForm(deck: newDeck))
+                                } else {
+                                    print("Error: Placeholder image not found")
+                                }
+                                
                             } else {
                                 showInvalidInputAlert = true
                             }

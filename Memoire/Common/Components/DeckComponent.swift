@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DeckComponent: View {
-    var title: String = "Lorem Ipsum"
+    var title: String
     var image: UIImage?
     
     var body: some View {
@@ -57,6 +57,9 @@ struct DeckComponent: View {
     ZStack{
         AppColors.base
             .edgesIgnoringSafeArea(.all)
-        DeckComponent()
+        DeckComponent(
+            title: "My Deck",
+            image: nil
+        )
     }
 }

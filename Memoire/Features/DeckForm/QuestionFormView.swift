@@ -43,7 +43,7 @@ struct QuestionFormView: View {
                 
                 VStack(spacing: 24){
                     PhotosPicker(selection: $photoPickerItem, matching: .images) {
-                        EmptyCardComponent(imageData: $imageData)
+                        EmptyDeckComponent(imageData: $imageData)
 
                     }
                     .frame(width: 280, height: .infinity)

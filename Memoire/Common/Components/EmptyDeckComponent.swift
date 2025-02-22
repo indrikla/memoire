@@ -1,5 +1,5 @@
 //
-//  EmptyCardComponent.swift
+//  EmptyDeckComponent.swift
 //  Memoire
 //
 //  Created by Risa on 17/02/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct EmptyCardComponent: View {
+struct EmptyDeckComponent: View {
     @Binding var imageData: Data?
     
     var body: some View {
@@ -41,5 +41,5 @@ struct EmptyCardComponent: View {
 
 
 #Preview {
-    EmptyCardComponent(imageData: .constant(nil))
+    EmptyDeckComponent(imageData: .constant(nil))
 }

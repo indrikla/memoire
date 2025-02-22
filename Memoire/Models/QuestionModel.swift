@@ -18,7 +18,7 @@ class Question {
     var imageData: Data?
     @Relationship(deleteRule: .nullify, inverse: \Deck.questions) var deck: Deck?
 
-    init(questionType: QuestionType, questionText: String, answers: [String], correctAnswerIndex: Int, image: UIImage? = nil, deck: Deck?) {
+    init(questionType: QuestionType, questionText: String, answers: [String], correctAnswerIndex: Int, image: UIImage? = nil, deck: Deck? = nil) {
         self.id = UUID()
         self.questionType = questionType
         self.questionText = questionText

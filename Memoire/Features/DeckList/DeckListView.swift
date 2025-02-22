@@ -13,6 +13,9 @@ struct DeckListView: View {
     @StateObject var deckListViewModel = DeckListViewModel(dataService: .shared)
     @State private var currentPage = 0
     @State private var isAddDeckPopUpVisible = false
+    @State private var selectedDeckForDeletion: Deck?
+    @State private var isDeleteAlertVisible = false
+    @State private var isLongPressActive: Bool = false
     @EnvironmentObject private var router: Router
 
     private let itemsPerPage = 6
@@ -22,9 +25,8 @@ struct DeckListView: View {
         GridItem(.flexible(), spacing: 36)
     ]
 
-    /// Sorted decks before pagination
     private var sortedDecks: [Deck] {
-        deckListViewModel.decks.sorted { $0.id.uuidString < $1.id.uuidString } // ✅ Sort by id (ascending)
+        deckListViewModel.decks.sorted { $0.id.uuidString < $1.id.uuidString }
     }
 
     private var totalDecks: Int {
@@ -34,7 +36,7 @@ struct DeckListView: View {
     private var totalPages: Int {
         let fullPages = (totalDecks / itemsPerPage)
         let hasExtraPage = totalDecks % itemsPerPage > 0
-        return fullPages + (hasExtraPage ? 1 : 0)
+        return fullPages + (hasExtraPage ? 1 : 1)
     }
 
     private var paginatedDecks: [Deck] {
@@ -58,6 +60,19 @@ struct DeckListView: View {
             currentPage += 1
         }
     }
+    
+
+    private func deleteDeck() {
+        if let deck = selectedDeckForDeletion {
+            withAnimation {
+                deckListViewModel.deleteDeck(deck)
+                deckListViewModel.fetchDecks()
+            }
+            selectedDeckForDeletion = nil
+        }
+    }
+
+
 
     var body: some View {
         ZStack {
@@ -83,12 +98,38 @@ struct DeckListView: View {
                     LazyVGrid(columns: columns, spacing: 36) {
                         if !paginatedDecks.isEmpty {
                             ForEach(paginatedDecks, id: \.id) { deck in
-                                Button(action: {
-                                    router.navigate(to: .gameplay(deck: deck))
-                                }) {
-                                    DeckComponent(
-                                        title: deck.title,
-                                        image: deck.imagePreview != nil ? UIImage(data: deck.imagePreview!) : nil
+                                if deckListViewModel.decks.contains(where: { $0.id == deck.id }) {
+                                    Button(action: {
+                                        print("\(deck.title) clicked in DeckLisrView")
+                                        if !isLongPressActive {
+                                            if deckListViewModel.decks.contains(where: { $0.id == deck.id }) {
+                                                    router.navigate(to: .gameplay(deck: deck))
+                                            } else {
+                                                print("Deck no longer exists.")
+                                            }
+                                        } else {
+                                            print("gamasuk gameplay")
+                                        }
+                                    }) {
+                                        DeckComponent(
+                                            title: deck.title,
+                                            image: deck.imagePreview != nil ? UIImage(data: deck.imagePreview!) : nil
+                                        )
+                                    }
+                                    .simultaneousGesture(
+                                        LongPressGesture(minimumDuration: 0.8)
+                                            .sequenced(before: DragGesture(minimumDistance: 0))
+                                            .onChanged { _ in
+                                                isLongPressActive = true
+                                                print("Long press activated in DeckLisrView")
+                                            }
+                                            .onEnded { _ in
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                                    isLongPressActive = false
+                                                }
+                                                selectedDeckForDeletion = deck
+                                                isDeleteAlertVisible = true
+                                            }
                                     )
                                 }
                             }
@@ -100,7 +141,7 @@ struct DeckListView: View {
                                 Button(action: {
                                     isAddDeckPopUpVisible = true
                                 }) {
-                                    EmptyCardComponent(imageData: .constant(nil))
+                                    EmptyDeckComponent(imageData: .constant(nil))
                                 }
                                 .frame(height: 240)
                             }
@@ -139,9 +180,16 @@ struct DeckListView: View {
                     .zIndex(2)
             }
         }
+        .alert("Delete Deck", isPresented: $isDeleteAlertVisible) {
+            Button("Cancel", role: .cancel) { selectedDeckForDeletion = nil }
+            Button("Delete", role: .destructive) { deleteDeck() }
+        } message: {
+            Text("Are you sure you want to delete this deck?")
+        }
         .navigationBarBackButtonHidden()
     }
 }
+
 
 #Preview {
     DeckListView()
