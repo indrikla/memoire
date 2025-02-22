@@ -61,8 +61,12 @@ struct GameplayView: View {
                         }
                         
                         VStack(alignment: .center, spacing: 40) {
-                            Text(question.questionText)
-                                .font(AppTypography.title)
+                            VStack(spacing: 12) {
+                                Text("Question no. \(currentQuestionIndex + 1) of \(deck.questions.count)")
+                                    .font(AppTypography.p1)
+                                Text(question.questionText)
+                                    .font(AppTypography.title)
+                            }
 
                             VStack(spacing: 24) {
                                 ForEach(Array(question.answers.enumerated()), id: \.element) { index, answer in
