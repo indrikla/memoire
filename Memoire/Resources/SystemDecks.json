@@ -1,159 +1,126 @@
-{
-  "categories": [
+[
     {
-      "id": "1",
-      "title": "Animals",
-      "image": "animals_image",
-      "questions": [
-        {
-          "questionText": "What is this?",
-          "answers": ["Dog", "Cat", "Rabbit"],
-          "correctAnswerIndex": 1,
-          "image": "cat_image",
-          "successQuestion": "Tell us a story about a cat. Did you ever have a pet cat when you were younger? What was its name?"
-        },
-        {
-          "questionText": "Who barks?",
-          "answers": ["Cow", "Dog", "Parrot"],
-          "correctAnswerIndex": 1,
-          "image": "dog_image",
-          "successQuestion": "Did you have a pet dog growing up? What kind of dog was it? What tricks could it do?"
-        },
-        {
-          "questionText": "Where does this animal live?",
-          "answers": ["Desert", "Jungle", "Ocean"],
-          "correctAnswerIndex": 1,
-          "image": "elephant_image",
-          "successQuestion": "Have you ever seen an elephant in person? Maybe at a zoo or on a trip? What do you remember about it?"
-        },
-        {
-          "questionText": "What is this colorful bird?",
-          "answers": ["Owl", "Parrot", "Eagle"],
-          "correctAnswerIndex": 1,
-          "image": "parrot_image",
-          "successQuestion": "Have you ever heard a parrot talk? What words or phrases do you remember them saying?"
-        },
-        {
-          "questionText": "Who says 'Moo'?",
-          "answers": ["Horse", "Cow", "Sheep"],
-          "correctAnswerIndex": 1,
-          "image": "cow_image",
-          "successQuestion": "Did you ever visit a farm when you were young? What do you remember about seeing cows?"
-        },
-        {
-          "questionText": "Where does this animal live?",
-          "answers": ["Mountains", "Ocean", "Savannah"],
-          "correctAnswerIndex": 1,
-          "image": "dolphin_image",
-          "successQuestion": "Have you ever been to the ocean? Have you seen dolphins playing in the water?"
-        },
-        {
-          "questionText": "Who gallops and wears a saddle?",
-          "answers": ["Goat", "Horse", "Deer"],
-          "correctAnswerIndex": 1,
-          "image": "horse_image",
-          "successQuestion": "Have you ever ridden a horse? If so, where was it? What did it feel like?"
-        },
-        {
-          "questionText": "Where does this bird live?",
-          "answers": ["Rainforest", "Antarctica", "Desert"],
-          "correctAnswerIndex": 1,
-          "image": "penguin_image",
-          "successQuestion": "Have you ever seen a penguin in a zoo or on TV? What do you think about how they waddle?"
-        },
-        {
-          "questionText": "What is this insect that starts as a caterpillar?",
-          "answers": ["Bee", "Butterfly", "Ladybug"],
-          "correctAnswerIndex": 1,
-          "image": "butterfly_image",
-          "successQuestion": "Do you remember chasing butterflies as a child? What colors were your favorite?"
-        },
-        {
-          "questionText": "Who hoots at night?",
-          "answers": ["Owl", "Hawk", "Crow"],
-          "correctAnswerIndex": 0,
-          "image": "owl_image",
-          "successQuestion": "Have you ever heard an owl hooting at night? What did it remind you of?"
-        }
-      ]
+        "id": "1",
+        "title": "Animals",
+        "image": "animals",
+        "questions": [
+            {
+                "questionText": "What is this?",
+                "answers": [
+                    "Dog",
+                    "Cat",
+                    "Rabbit"
+                ],
+                "correctAnswerIndex": 1,
+                "image": "cat",
+                "successQuestion": "Tell us a story about a cat. Did you ever have a pet cat when you were younger? What was its name?"
+            },
+            {
+                "questionText": "Who barks?",
+                "answers": [
+                    "Cow",
+                    "Dog",
+                    "Parrot"
+                ],
+                "correctAnswerIndex": 1,
+                "image": "dog",
+                "successQuestion": "Did you have a pet dog growing up? What kind of dog was it? What tricks could it do?"
+            },
+            {
+                "questionText": "Where does this animal live?",
+                "answers": [
+                    "Desert",
+                    "Jungle",
+                    "Ocean"
+                ],
+                "correctAnswerIndex": 1,
+                "image": "elephant",
+                "successQuestion": "Have you ever seen an elephant in person? Maybe at a zoo or on a trip? What do you remember about it?"
+            },
+            {
+                "questionText": "What is this colorful bird?",
+                "answers": [
+                    "Owl",
+                    "Parrot",
+                    "Eagle"
+                ],
+                "correctAnswerIndex": 1,
+                "image": "parrot",
+                "successQuestion": "Have you ever heard a parrot talk? What words or phrases do you remember them saying?"
+            },
+            {
+                "questionText": "Who says 'Moo'?",
+                "answers": [
+                    "Horse",
+                    "Cow",
+                    "Sheep"
+                ],
+                "correctAnswerIndex": 1,
+                "image": "cow",
+                "successQuestion": "Did you ever visit a farm when you were young? What do you remember about seeing cows?"
+            }
+        ]
     },
     {
-      "id": "2",
-      "title": "Fruits",
-      "image": "fruits_image",
-      "questions": [
-        {
-          "questionText": "What is this fruit?",
-          "answers": ["Apple", "Banana", "Grapes"],
-          "correctAnswerIndex": 0,
-          "image": "apple_image",
-          "successQuestion": "Did you eat apples when you were young? How did you like them?"
-        },
-        {
-          "questionText": "What fruit is long and yellow?",
-          "answers": ["Grapes", "Orange", "Banana"],
-          "correctAnswerIndex": 2,
-          "image": "banana_image",
-          "successQuestion": "Did you ever eat bananas for breakfast? Did you like them plain or mashed?"
-        },
-        {
-          "questionText": "What fruit is round and orange?",
-          "answers": ["Orange", "Strawberry", "Pineapple"],
-          "correctAnswerIndex": 0,
-          "image": "orange_image",
-          "successQuestion": "Did you drink fresh orange juice? Who made it for you?"
-        },
-        {
-          "questionText": "What fruit grows in bunches?",
-          "answers": ["Grapes", "Cherry", "Watermelon"],
-          "correctAnswerIndex": 0,
-          "image": "grapes_image",
-          "successQuestion": "Did you ever eat grapes off the vine? Do you like raisins?"
-        },
-        {
-          "questionText": "What fruit is big and juicy with black seeds?",
-          "answers": ["Pineapple", "Watermelon", "Mango"],
-          "correctAnswerIndex": 1,
-          "image": "watermelon_image",
-          "successQuestion": "Did you eat watermelon in the summer? Did you ever have a seed-spitting contest?"
-        },
-        {
-          "questionText": "What small red fruit has tiny seeds on the outside?",
-          "answers": ["Cherry", "Strawberry", "Peach"],
-          "correctAnswerIndex": 1,
-          "image": "strawberry_image",
-          "successQuestion": "Did you ever pick strawberries? Did you eat them with sugar or cream?"
-        },
-        {
-          "questionText": "What fruit has spiky skin and sweet yellow inside?",
-          "answers": ["Pineapple", "Mango", "Coconut"],
-          "correctAnswerIndex": 0,
-          "image": "pineapple_image",
-          "successQuestion": "Did you ever eat fresh pineapple? Did you like it sweet or sour?"
-        },
-        {
-          "questionText": "What tropical fruit has smooth skin and a big seed inside?",
-          "answers": ["Banana", "Peach", "Mango"],
-          "correctAnswerIndex": 2,
-          "image": "mango_image",
-          "successQuestion": "Did you eat mangoes as a child? Were they easy to peel?"
-        },
-        {
-          "questionText": "What fruit is hard on the outside and has white inside?",
-          "answers": ["Coconut", "Melon", "Pear"],
-          "correctAnswerIndex": 0,
-          "image": "coconut_image",
-          "successQuestion": "Did you ever drink coconut water? Did you like the taste?"
-        },
-        {
-          "questionText": "What small fruit is red and has a stem?",
-          "answers": ["Raspberry", "Cherry", "Cranberry"],
-          "correctAnswerIndex": 1,
-          "image": "cherry_image",
-          "successQuestion": "Did you eat cherries fresh? Did you ever bake cherry pie?"
-        }
-      ]
+        "id": "2",
+        "title": "Fruits",
+        "image": "fruits",
+        "questions": [
+            {
+                "questionText": "What is this fruit?",
+                "answers": [
+                    "Apple",
+                    "Banana",
+                    "Grapes"
+                ],
+                "correctAnswerIndex": 0,
+                "image": "apple",
+                "successQuestion": "Did you eat apples when you were young? How did you like them?"
+            },
+            {
+                "questionText": "What fruit is long and yellow?",
+                "answers": [
+                    "Grapes",
+                    "Orange",
+                    "Banana"
+                ],
+                "correctAnswerIndex": 2,
+                "image": "banana",
+                "successQuestion": "Did you ever eat bananas for breakfast? Did you like them plain or mashed?"
+            },
+            {
+                "questionText": "What fruit is round and orange?",
+                "answers": [
+                    "Orange",
+                    "Strawberry",
+                    "Pineapple"
+                ],
+                "correctAnswerIndex": 0,
+                "image": "orange",
+                "successQuestion": "Did you drink fresh orange juice? Who made it for you?"
+            },
+            {
+                "questionText": "What fruit grows in bunches?",
+                "answers": [
+                    "Grapes",
+                    "Cherry",
+                    "Watermelon"
+                ],
+                "correctAnswerIndex": 0,
+                "image": "grapes",
+                "successQuestion": "Did you ever eat grapes off the vine? Do you like raisins?"
+            },
+            {
+                "questionText": "What fruit is big and juicy with black seeds?",
+                "answers": [
+                    "Pineapple",
+                    "Watermelon",
+                    "Mango"
+                ],
+                "correctAnswerIndex": 1,
+                "image": "watermelon",
+                "successQuestion": "Did you eat watermelon in the summer? Did you ever have a seed-spitting contest?"
+            }
+        ]
     }
-  ]
-}
-
+]

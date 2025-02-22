@@ -1,5 +1,5 @@
 //
-//  CardRevealComponent.swift
+//  CardsRevealComponent.swift
 //  Memoire
 //
 //  Created by Risa on 18/02/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CardRevealComponent: View {
+struct CardsRevealComponent: View {
     @Binding var flippedCards: Set<String>
 
     let rows = 3
@@ -36,5 +36,5 @@ struct CardRevealComponent: View {
 }
 
 #Preview {
-    CardRevealComponent(flippedCards: .constant([]))
+    CardsRevealComponent(flippedCards: .constant([]))
 }

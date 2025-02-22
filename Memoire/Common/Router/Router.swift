@@ -18,6 +18,7 @@ class Router: ObservableObject {
         case deckList
         case deckForm(deck: Deck)
         case gameplay(deck: Deck)
+        case gameplaySystem(systemDeck: SystemDeck)
     }
     
     func navigate(to route: Route) {

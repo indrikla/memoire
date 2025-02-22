@@ -10,6 +10,7 @@ import SwiftUI
 struct DeckComponent: View {
     var title: String
     var image: UIImage?
+    var assetImageName: String? = nil
     
     var body: some View {
         VStack(alignment: .center, spacing: -8) {
@@ -20,6 +21,12 @@ struct DeckComponent: View {
                     Group {
                         if let image = image {
                             Image(uiImage: image)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 251, height: 174)
+                                .clipped()
+                        } else if let assetImageName = assetImageName {
+                            Image(assetImageName)
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: 251, height: 174)

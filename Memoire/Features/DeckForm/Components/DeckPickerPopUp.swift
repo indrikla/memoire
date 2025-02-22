@@ -20,7 +20,7 @@ struct DeckPickerPopUp: View {
 
                 VStack(alignment: .leading, spacing: 42) {
                     HeaderComponent(
-                        title: "Add New Deck",
+                        title: "Add A New Deck",
                         subtitle: "Create your own or pick from the existing theme!",
                         buttons: [
                             AppButton(title: "X", color: .orange, type: .icon, action: {
@@ -28,16 +28,29 @@ struct DeckPickerPopUp: View {
                             })
                         ]
                     )
-                    VStack(spacing: 12) {
-                        AppButton(title: "Custom", color: .green, type: .large, height: 90, action: {
+                    VStack(spacing: 24) {
+                        AppButton(title: "Create Custom Deck", color: .purple, type: .large, height: 90, action: {
                             router.navigate(to: .deckInit)
                         })
-                        AppButton(title: "Animal", color: .green, type: .large, height: 90, action: {
-                            
-                        })
-                        AppButton(title: "Food", color: .green, type: .large, height: 90, action: {
-                            
-                        })
+                        Divider()
+                        Text("Exciting Themes to Choose:")
+                            .font(AppTypography.h1_1)
+                        HStack(spacing: 32){
+                            Button(action: {
+                                let deck = SystemDeckLoader.loadSystemDeck(byID: "1")
+                                router.navigate(to: .gameplaySystem(systemDeck: deck))
+                            }) {
+                                DeckComponent(title: "Animals", assetImageName: "AnimalsPlaceholder")
+                            }
+
+                            Button(action: {
+                                let deck = SystemDeckLoader.loadSystemDeck(byID: "2")
+                                router.navigate(to: .gameplaySystem(systemDeck: deck))
+                            }) {
+                                DeckComponent(
+                                    title: "Fruits", assetImageName: "FruitsPlaceholder")
+                            }
+                        }
                     }
                 }
                 .padding(.horizontal, 34)
@@ -47,7 +60,6 @@ struct DeckPickerPopUp: View {
                 .cornerRadius(24)
                 .transition(.opacity.combined(with: .move(edge: .bottom)))
                 .zIndex(2)
-                
             }
         }
     }

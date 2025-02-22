@@ -12,6 +12,7 @@ import Foundation
 class DeckFormViewModel: ObservableObject {
     @Published var deck: Deck = .init(title: "")
     @Published var questions: [Question] = []
+
     @Published var isQuestionValid: Bool = false
     @Published var canSubmit: Bool = false
     

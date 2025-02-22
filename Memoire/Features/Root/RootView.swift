@@ -26,9 +26,17 @@ struct RootView: View {
                         case .deckList:
                             DeckListView()
                         case let .deckForm(deck):
-                            DeckFormView(deck: deck, deckFormViewModel: DeckFormViewModel(dataService: .shared))
+                            DeckFormView(
+                                deck: deck,
+                                deckFormViewModel: DeckFormViewModel(dataService: .shared)
+                            )
                         case let .gameplay(deck):
-                            GameplayView(deck: deck, deckListViewModel: DeckListViewModel(dataService: .shared))
+                            GameplayView(
+                                deck: deck,
+                                deckListViewModel: DeckListViewModel(dataService: .shared)
+                            )
+                        case let .gameplaySystem(systemDeck):
+                            SystemGameplayView(systemDeck: systemDeck)
                         }
                     }
             }

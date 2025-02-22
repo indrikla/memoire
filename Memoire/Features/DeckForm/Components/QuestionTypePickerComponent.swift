@@ -17,7 +17,7 @@ struct QuestionTypePickerComponent: View {
             HStack(spacing: 16){
                 ForEach(QuestionType.allCases.filter { $0 != .UNKNOWN }, id: \.self) { type in
                     QuestionTypeButton(
-                        title: type.rawValue,
+                        title: type.questionText,
                         isSelected: selectedType == type
                     ) {
                         selectedType = type

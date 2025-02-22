@@ -13,11 +13,11 @@ struct AnswerSelectionComponent: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text("Answer")
                     .font(AppTypography.p1b)
                 Text("Type and select the right option")
-                    .font(AppTypography.p1)
+                    .font(AppTypography.p2)
             }
             VStack(alignment: .leading, spacing: 16) {
                 ForEach(0..<3, id: \.self) { index in

@@ -73,7 +73,7 @@ struct GameplayView: View {
                                         .frame(width: 600, height: 600)
                                         .clipped()
                                 }
-                                CardRevealComponent(flippedCards: $flippedCards)
+                                CardsRevealComponent(flippedCards: $flippedCards)
                                     .id(currentQuestionIndex)
                             }
                             
@@ -130,7 +130,6 @@ struct GameplayView: View {
                         }
                     }
                 }
-
             }
             .padding(36)
             

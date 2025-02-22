@@ -11,6 +11,7 @@ import Foundation
 
 class DeckListViewModel: ObservableObject {
     @Published var decks: [Deck] = []
+    @Published var systemDecks: [SystemDeck] = []
     
     private let dataService: SwiftDataService
     
