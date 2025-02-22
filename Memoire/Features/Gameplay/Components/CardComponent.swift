@@ -1,5 +1,5 @@
 //
-//  CardView.swift
+//  CardComponent.swift
 //  Memoire
 //
 //  Created by Risa on 19/02/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CardView: View {
+struct CardComponent: View {
     var isFlipped: Bool
     @State private var rotation: Double = 0
     @State private var isHidden = false
@@ -42,5 +42,5 @@ struct CardView: View {
 
 
 #Preview {
-    CardView(isFlipped: false)
+    CardComponent(isFlipped: false)
 }

@@ -9,7 +9,6 @@ import SwiftUI
 import PhotosUI
 
 struct QuestionFormView: View {
-//    var question: Question
     @State var questionType: QuestionType = .UNKNOWN
     @State var questionText: String = ""
     @State var correctAnswerIndex: Int = -1
@@ -32,10 +31,10 @@ struct QuestionFormView: View {
             
             HStack(alignment: .top, spacing: 36) {
                 VStack(alignment: .leading, spacing: 36) {
-                    QuestionTypePickerView(
+                    QuestionTypePickerComponent(
                         selectedType: $questionType
                     )
-                    AnswerSelectionView(
+                    AnswerSelectionComponent(
                         selectedOption: $correctAnswerIndex,
                         answers: $answers
                     )

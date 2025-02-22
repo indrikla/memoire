@@ -15,7 +15,7 @@ struct CorrectAnwerPopUp: View {
     var correctAnswer: String = ""
     var imagePreview: UIImage?
     @EnvironmentObject private var router: Router
-    
+
     var body: some View {
         if isVisible {
             ZStack {

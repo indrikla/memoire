@@ -19,10 +19,9 @@ struct CardRevealComponent: View {
                 HStack(spacing: 0) {
                     ForEach(0..<cols, id: \.self) { col in
                         let cardID = "\(row)-\(col)"
-                        CardView(isFlipped: flippedCards.contains(cardID))
+                        CardComponent(isFlipped: flippedCards.contains(cardID))
                             .onTapGesture {
                                 flipCard(cardID)
-                                print("Card Flipped \(cardID)")
                             }
                     }
                 }

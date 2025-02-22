@@ -1,5 +1,5 @@
 //
-//  AnswerSelectionView.swift
+//  AnswerSelectionComponent.swift
 //  Memoire
 //
 //  Created by Risa on 18/02/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AnswerSelectionView: View {
+struct AnswerSelectionComponent: View {
     @Binding var selectedOption: Int
     @Binding var answers: [String]
 
@@ -63,7 +63,7 @@ struct AnswerSelectionView: View {
 
 
 #Preview {
-    AnswerSelectionView(
+    AnswerSelectionComponent(
         selectedOption: .constant(-1),
         answers: .constant([""])
     )

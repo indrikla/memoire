@@ -23,19 +23,7 @@ class SwiftDataService {
 
     func fetchDecks() -> [Deck] {
         do {
-            let decks = try modelContext.fetch(FetchDescriptor<Deck>())
-                print("✅ Fetched Decks: \(decks.count)")
-                for deck in decks {
-                    print("🔹 Deck Title: \(deck.title)")
-                    print("   - 🖼 Image Data Exists: \(deck.imagePreview != nil ? "Yes" : "No")")
-                    print("   - 🧩 Questions: \(deck.questions.count)")
-                    for question in deck.questions {
-                        print("      ▫ \(question.questionText) | Type: \(question.questionType.rawValue)")
-                    }
-                }
-                return decks
-
-//            return try modelContext.fetch(FetchDescriptor<Deck>())
+            return try modelContext.fetch(FetchDescriptor<Deck>())
         } catch {
             fatalError("Failed to fetch decks: \(error.localizedDescription)")
         }
@@ -53,7 +41,6 @@ class SwiftDataService {
     
     func addImagePreview(_ deck: Deck, image: UIImage?) {
         deck.imagePreview = image?.jpegData(compressionQuality: 0.8)
-        print("masuk sini untuk \(deck.title)")
         saveContext()
     }
 
@@ -75,5 +62,4 @@ class SwiftDataService {
             fatalError("Failed to save changes: \(error.localizedDescription)")
         }
     }
-
 }

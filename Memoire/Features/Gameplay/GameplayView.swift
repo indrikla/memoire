@@ -16,6 +16,8 @@ struct GameplayView: View {
     @State private var correctAnswer: String = ""
     @State private var imagePreview: UIImage? = nil
     @State private var flippedCards: Set<String> = []
+
+    @State private var isExplosionVisible = true
     
     @EnvironmentObject private var router: Router
     
@@ -93,6 +95,7 @@ struct GameplayView: View {
                             .onChange(of: currentQuestionIndex) {
                                 hiddenAnswers.removeAll()
                                 flippedCards.removeAll()
+                                isExplosionVisible = true
                             }
 
                             Spacer()
@@ -116,6 +119,10 @@ struct GameplayView: View {
                 )
                 .transition(.opacity.combined(with: .move(edge: .bottom)))
                 .zIndex(2)
+                if isExplosionVisible {
+                    ParticleExplosion(isExplosionVisible: $isExplosionVisible)
+                        .zIndex(3)
+                }
             }
         }
         .navigationBarBackButtonHidden()

@@ -94,10 +94,10 @@ struct DeckFormView: View {
                         
                         HStack(alignment: .top, spacing: 36) {
                             VStack(alignment: .leading, spacing: 36) {
-                                QuestionTypePickerView(
+                                QuestionTypePickerComponent(
                                     selectedType: $questionType
                                 )
-                                AnswerSelectionView(
+                                AnswerSelectionComponent(
                                     selectedOption: $correctAnswerIndex,
                                     answers: $answers
                                 )
@@ -187,6 +187,6 @@ struct DeckFormView: View {
     ZStack{
         AppColors.base
             .edgesIgnoringSafeArea(.all)
-        DeckFormView(deck: Deck(title: "My Deeckkk"), deckFormViewModel: DeckFormViewModel(dataService: .shared))
+        DeckFormView(deck: Deck(title: "My Deck"), deckFormViewModel: DeckFormViewModel(dataService: .shared))
     }
 }

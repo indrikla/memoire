@@ -1,5 +1,5 @@
 //
-//  QuestionTypePickerView.swift
+//  QuestionTypePickerComponent.swift
 //  Memoire
 //
 //  Created by Risa on 17/02/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct QuestionTypePickerView: View {
+struct QuestionTypePickerComponent: View {
     @Binding var selectedType: QuestionType
 
     var body: some View {
@@ -56,5 +56,5 @@ struct QuestionTypeButton: View {
 }
 
 #Preview {
-    QuestionTypePickerView(selectedType: .constant(.WHO))
+    QuestionTypePickerComponent(selectedType: .constant(.WHO))
 }

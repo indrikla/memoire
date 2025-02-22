@@ -34,10 +34,9 @@ struct DeckListView: View {
     private var totalPages: Int {
         let fullPages = (totalDecks / itemsPerPage)
         let hasExtraPage = totalDecks % itemsPerPage > 0
-        return fullPages + (hasExtraPage ? 1 : 0) // ✅ Fixes extra page issue
+        return fullPages + (hasExtraPage ? 1 : 0)
     }
 
-    /// Returns the decks for the current page after sorting
     private var paginatedDecks: [Deck] {
         let startIndex = currentPage * itemsPerPage
         let endIndex = min(startIndex + itemsPerPage, totalDecks)
