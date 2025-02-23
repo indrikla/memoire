@@ -14,6 +14,9 @@ struct CorrectAnwerPopUp: View {
 
     var correctAnswer: String = ""
     var imagePreview: UIImage?
+    var imagePreviewSystem: String = "Placeholder"
+    var successQuestionSystem: String = ""
+    
     @EnvironmentObject private var router: Router
 
     var body: some View {
@@ -24,8 +27,15 @@ struct CorrectAnwerPopUp: View {
                     .onTapGesture { isVisible = false }
                 
                 HStack(spacing:32){
-                    if imagePreview != nil {
+                    if imagePreview != nil && imagePreviewSystem == "Placeholder" {
                         Image(uiImage: imagePreview!)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 400, height: 300)
+                            .clipped()
+                            .cornerRadius(16)
+                    } else if imagePreviewSystem != "Placeholder" && imagePreview == nil {
+                        Image(imagePreviewSystem)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 400, height: 300)
@@ -46,8 +56,14 @@ struct CorrectAnwerPopUp: View {
                             Text("It's \(correctAnswer)!")
                                 .font(AppTypography.title)
                                 .foregroundStyle(AppColors.black1)
-                            Text(SuccessQuestion.getQuestion(for: correctAnswer))
-                                .font(AppTypography.p1)
+                            
+                            if imagePreviewSystem != "" && imagePreview == nil {
+                                Text(successQuestionSystem)
+                                    .font(AppTypography.p1)
+                            } else {
+                                Text(SuccessQuestion.getQuestion(for: correctAnswer))
+                                    .font(AppTypography.p1)
+                            }
                         }
                         .multilineTextAlignment(.center)
                         

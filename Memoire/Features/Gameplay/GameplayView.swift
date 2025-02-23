@@ -78,11 +78,13 @@ struct GameplayView: View {
                             }
                             
                             VStack(alignment: .center, spacing: 40) {
-                                VStack(spacing: 12) {
+                                VStack(alignment: .center, spacing: 12) {
                                     Text("Question no. \(currentQuestionIndex + 1) of \(deck.questions.count)")
                                         .font(AppTypography.p1)
                                     Text(question.questionText)
                                         .font(AppTypography.title)
+                                        .foregroundStyle(AppColors.black1)
+                                        .multilineTextAlignment(.center)
                                 }
 
                                 VStack(spacing: 24) {

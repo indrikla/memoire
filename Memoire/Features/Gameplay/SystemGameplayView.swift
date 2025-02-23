@@ -16,7 +16,9 @@ struct SystemGameplayView: View {
     @State private var isLastQuestion: Bool = false
     @State private var correctAnswer: String = ""
     @State private var flippedCards: Set<String> = []
-
+    @State private var imagePreviewSystem: String = "Placeholder"
+    @State private var successQuestionSystem: String = ""
+    
     @State private var isExplosionVisible = true
     
     @EnvironmentObject private var router: Router
@@ -47,6 +49,10 @@ struct SystemGameplayView: View {
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: 600, height: 600)
                                 .clipped()
+                                .onAppear {
+                                    imagePreviewSystem = question.image
+                                    successQuestionSystem = question.successQuestion
+                                }
                             
                             CardsRevealComponent(flippedCards: $flippedCards)
                                 .id(currentQuestionIndex)
@@ -58,6 +64,7 @@ struct SystemGameplayView: View {
                                     .font(AppTypography.p1)
                                 Text(question.questionText)
                                     .font(AppTypography.title)
+                                    .foregroundStyle(AppColors.black1)
                                     .multilineTextAlignment(.center)
                                     .fixedSize(horizontal: false, vertical: true)
                             }
@@ -88,6 +95,12 @@ struct SystemGameplayView: View {
                                 hiddenAnswers.removeAll()
                                 flippedCards.removeAll()
                                 isExplosionVisible = true
+                                
+                                if systemDeck.questions.indices.contains(currentQuestionIndex) {
+                                    let newQuestion = systemDeck.questions[currentQuestionIndex]
+                                    imagePreviewSystem = newQuestion.image
+                                    successQuestionSystem = newQuestion.successQuestion
+                                }
                             }
 
                             Spacer()
@@ -106,7 +119,9 @@ struct SystemGameplayView: View {
                     isVisible: $isCorrectAnswerPopUpVisible,
                     isLastQuestion: $isLastQuestion,
                     currentQuestionIndex: $currentQuestionIndex,
-                    correctAnswer: correctAnswer
+                    correctAnswer: correctAnswer,
+                    imagePreviewSystem: imagePreviewSystem,
+                    successQuestionSystem: successQuestionSystem
                 )
                 .transition(.opacity.combined(with: .move(edge: .bottom)))
                 .zIndex(2)
