@@ -76,10 +76,23 @@ struct DeckListView: View {
 
     var body: some View {
         ZStack {
-            Image("HomeBackground")
-                .resizable()
-                .scaledToFill()
-                .ignoresSafeArea()
+            MeshGradient(
+                width: 3,
+                height: 3,
+                points: [
+                    SIMD2(0.0, 0.0), SIMD2(0.5, 0.0), SIMD2(1.0, 0.0),
+                    SIMD2(0.0, 0.5), SIMD2(0.5, 0.5), SIMD2(1.0, 0.5),
+                    SIMD2(0.0, 1.0), SIMD2(0.5, 1.0), SIMD2(1.0, 4.0)
+                ],
+                colors: [
+                    .purple1, .purple2,
+                    .purple2, .purple1, .purple1,
+                    .purple1, .purple2, .purple1
+                ]
+            )
+            .scaledToFill()
+            Image("Book")
+                .scaledToFit()
 
             HStack {
                 Button(action: previousPage) {
@@ -175,7 +188,7 @@ struct DeckListView: View {
             }
 
             if isAddDeckPopUpVisible {
-                DeckPickerPopUp(isVisible: $isAddDeckPopUpVisible)
+                DeckPickerPopUpView(isVisible: $isAddDeckPopUpVisible)
                     .transition(.opacity.combined(with: .move(edge: .bottom)))
                     .zIndex(2)
             }

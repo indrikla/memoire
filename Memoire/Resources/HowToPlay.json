@@ -1,0 +1,25 @@
+[
+    {
+        "id": 1,
+        "title": "About Memoire",
+        "description": "A memory-evoking game that strengthens cognitive engagement and connection through conversation for those facing dementia."
+    },
+    {
+        "id": 2,
+        "title": "Game Guidelines",
+        "items": [
+            {
+                "title": "Play Together",
+                "description": "Guide and encourage your co-player, but enjoy the game as equals. Take turns and make it a shared experience."
+            },
+            {
+                "title": "No Right or Wrong Way",
+                "description": "Use the game as a starting point for fun and conversation. Let memories and emotions guide the experience."
+            },
+            {
+                "title": "Engage in Conversations",
+                "description": "Ask one question at a time and share your own stories too. Meaningful moments come from connection."
+            }
+        ]
+    }
+]

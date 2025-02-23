@@ -18,6 +18,7 @@ enum AppTypography {
     static let p2 = Font.custom("Poppins-Regular", size: 20)
     static let p2b = Font.custom("Poppins-Bold", size: 20)
     static let p3 = Font.custom("Poppins-Regular", size: 18)
+    static let p3b = Font.custom("Poppins-Bold", size: 18)
     
     static let custom = Font.custom("Skincake", size: 48)
 }

@@ -1,5 +1,5 @@
 //
-//  DeckPickerPopUp.swift
+//  DeckPickerPopUpView.swift
 //  Memoire
 //
 //  Created by Risa on 17/02/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DeckPickerPopUp: View {
+struct DeckPickerPopUpView: View {
     @Binding var isVisible: Bool
     @EnvironmentObject private var router: Router
 
@@ -37,14 +37,14 @@ struct DeckPickerPopUp: View {
                             .font(AppTypography.h1_1)
                         HStack(spacing: 32){
                             Button(action: {
-                                let deck = SystemDeckLoader.loadSystemDeck(byID: "1")
+                                let deck = JSONLoader.loadSystemDeck(byID: "1")
                                 router.navigate(to: .gameplaySystem(systemDeck: deck))
                             }) {
                                 DeckComponent(title: "Animals", assetImageName: "AnimalsPlaceholder")
                             }
 
                             Button(action: {
-                                let deck = SystemDeckLoader.loadSystemDeck(byID: "2")
+                                let deck = JSONLoader.loadSystemDeck(byID: "2")
                                 router.navigate(to: .gameplaySystem(systemDeck: deck))
                             }) {
                                 DeckComponent(
@@ -67,5 +67,5 @@ struct DeckPickerPopUp: View {
 
 
 #Preview {
-    DeckPickerPopUp(isVisible: .constant(true))
+    DeckPickerPopUpView(isVisible: .constant(true))
 }
