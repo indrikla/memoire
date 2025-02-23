@@ -11,12 +11,15 @@ struct StartView: View {
     @EnvironmentObject private var router: Router
     @State private var isHowToPlayPopUpVisible = false
     @State private var isCreditPopUpVisible = false
+    
+    @State private var isZoomedIn = false
 
     var body: some View {
         ZStack{
             Image("ColorfulBackground")
                 .resizable()
                 .scaledToFill()
+                .ignoresSafeArea(.all)
 
             Image("Book")
                 .scaledToFit()
@@ -33,24 +36,26 @@ struct StartView: View {
                 })
                 
             }
-            AppButton(title: "⭐",  color:.green, type:.icon, action: {
-                isCreditPopUpVisible = true
-            })
-            .position(x: 1020, y: 200)
+            GeometryReader { geometry in
+                let xPosition = geometry.size.width / 9 * 7
+                let yPosition = geometry.size.height / 4
+
+                AppButton(title: "⭐", color: .green, type: .icon, action: {
+                    isCreditPopUpVisible = true
+                })
+                .position(x: xPosition, y: yPosition)
+            }
             
             if isHowToPlayPopUpVisible {
                 HowToPlayPopUpView(isVisible: $isHowToPlayPopUpVisible)
-                    .transition(.opacity.combined(with: .move(edge: .bottom)))
                     .zIndex(2)
             }
             
             if isCreditPopUpVisible {
                 CreditPopUpView(isVisible: $isCreditPopUpVisible)
-                    .transition(.opacity.combined(with: .move(edge: .bottom)))
                     .zIndex(2)
             }
         }
-        .edgesIgnoringSafeArea(.all)
     }
 }
 

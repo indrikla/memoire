@@ -17,7 +17,6 @@ class JSONLoader {
             let data = try Data(contentsOf: url)
             let decoder = JSONDecoder()
             let decks = try decoder.decode([SystemDeck].self, from: data)
-            print(decks)
 
             if let deck = decks.first(where: { $0.id == id }) {
                 return deck

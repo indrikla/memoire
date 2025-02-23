@@ -4,17 +4,17 @@
         "title": "Fonts",
         "items": [
             {
-                "title": "Skia",
+                "title": "🖋️ Skia",
                 "description": "https://fonts.adobe.com/fonts/skia-cc (Adobe Font)"
             },
             {
-                "title": "Poppins",
+                "title": "✏️ Poppins",
                 "description": "https://fonts.google.com/specimen/Poppins (Google Font)"
             },
             {
-                "title": "Skincake",
+                "title": "🔤 Skincake",
                 "description": "https://www.dafont.com/skincake.font (Dafont)"
-            },
+            }
         ]
     },
     {
@@ -22,43 +22,43 @@
         "title": "Animals",
         "items": [
             {
-                "title": "Cat",
+                "title": "🐱 Cat",
                 "description": "https://fineartamerica.com/featured/portrait-gray-tabby-cat-maika-777.html (Fine Art America)"
             },
             {
-                "title": "Dog",
+                "title": "🐶 Dog",
                 "description": "https://unsplash.com/photos/dogs-face-2l0CWTpcChI (Unsplash)"
             },
             {
-                "title": "Elephant",
+                "title": "🐘 Elephant",
                 "description": "https://unsplash.com/photos/elephant-walking-during-daytime-QJbyG6O0ick (Unsplash)"
             },
             {
-                "title": "Parrot",
-                "description": "https://pngimg.com/image/96579 (PNGImg)"
+                "title": "🦜 Parrot",
+                "description": "https://unsplash.com/photos/blue-and-red-macaw-on-brown-tree-branch-during-daytime-P4n7NQNOmFU (Unsplash)"
             },
             {
-                "title": "Cow",
+                "title": "🐄 Cow",
                 "description": "https://unsplash.com/photos/white-and-black-cow-on-grass-field-P_t9mRLFoRs (Unsplash)"
             },
             {
-                "title": "Dolphin",
+                "title": "🐬 Dolphin",
                 "description": "https://en.wikipedia.org/wiki/File:Dolphin_leap.JPG (Wikipedia)"
             },
             {
-                "title": "Horse",
+                "title": "🐴 Horse",
                 "description": "https://unsplash.com/photos/running-white-horse-lIeqGEdvex0 (Unsplash)"
             },
             {
-                "title": "Penguin",
+                "title": "🐧 Penguin",
                 "description": "https://unsplash.com/photos/penguins-on-green-grass-during-daytime-4CVMWrWh3xU (Unsplash)"
             },
             {
-                "title": "Butterfly",
+                "title": "🦋 Butterfly",
                 "description": "https://unsplash.com/photos/blue-and-white-butterfly-perched-on-white-flower-in-close-up-photography-during-daytime-E3TZQOWh8IA (Unsplash)"
             },
             {
-                "title": "Owl",
+                "title": "🦉 Owl",
                 "description": "https://unsplash.com/photos/brown-and-white-owl-oqYHtXrLXLo (Unsplash)"
             }
         ]
@@ -68,45 +68,46 @@
         "title": "Fruits",
         "items": [
             {
-                "title": "Apple",
+                "title": "🍎 Apple",
                 "description": "https://unsplash.com/photos/one-red-apple-CoqJGsFVJtM (Unsplash)"
             },
             {
-                "title": "Banana",
+                "title": "🍌 Banana",
                 "description": "https://unsplash.com/photos/yellow-bananas-fczCr7MdE7U (Unsplash)"
             },
             {
-                "title": "Orange",
+                "title": "🍊 Orange",
                 "description": "https://unsplash.com/photos/orange-fruit-in-white-ceramic-plate-close-up-photography-YJ7dFJTHEjI (Unsplash)"
             },
             {
-                "title": "Grapes",
+                "title": "🍇 Grapes",
                 "description": "https://unsplash.com/photos/purple-grapes-lot-y2MeW00BdBo (Unsplash)"
             },
             {
-                "title": "Watermelon",
+                "title": "🍉 Watermelon",
                 "description": "https://unsplash.com/photos/watermelon-close-up-photography-aFUHu9WNO3Q (Unsplash)"
             },
             {
-                "title": "Strawberry",
+                "title": "🍓 Strawberry",
                 "description": "https://unsplash.com/photos/sliced-strawberries-bULD0lNVXOA (Unsplash)"
             },
             {
-                "title": "Pineapple",
+                "title": "🍍 Pineapple",
                 "description": "https://unsplash.com/photos/orange-and-green-pineapple-fruits-ZS_RypKo9sk (Unsplash)"
             },
             {
-                "title": "Mango",
+                "title": "🥭 Mango",
                 "description": "https://unsplash.com/photos/sliced-cheese-beside-green-leaves-TIGDsyy0TK4 (Unsplash)"
             },
             {
-                "title": "Coconut",
+                "title": "🥥 Coconut",
                 "description": "https://unsplash.com/photos/white-and-brown-round-cake-WUMxEBWvE64 (Unsplash)"
             },
             {
-                "title": "Cherry",
+                "title": "🍒 Cherry",
                 "description": "https://unsplash.com/photos/red-cherries-on-white-ceramic-plate-Oqrx1ZxBYtc (Unsplash)"
             }
         ]
     }
 ]
+

@@ -61,7 +61,6 @@ struct DeckListView: View {
         }
     }
     
-
     private func deleteDeck() {
         if let deck = selectedDeckForDeletion {
             withAnimation {
@@ -71,8 +70,6 @@ struct DeckListView: View {
             selectedDeckForDeletion = nil
         }
     }
-
-
 
     var body: some View {
         ZStack {
@@ -91,6 +88,7 @@ struct DeckListView: View {
                 ]
             )
             .scaledToFill()
+            
             Image("Book")
                 .scaledToFit()
 
@@ -120,8 +118,6 @@ struct DeckListView: View {
                                             } else {
                                                 print("Deck no longer exists.")
                                             }
-                                        } else {
-                                            print("gamasuk gameplay")
                                         }
                                     }) {
                                         DeckComponent(
@@ -202,7 +198,6 @@ struct DeckListView: View {
         .navigationBarBackButtonHidden()
     }
 }
-
 
 #Preview {
     DeckListView()

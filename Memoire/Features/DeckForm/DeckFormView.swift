@@ -7,6 +7,7 @@
 
 import SwiftUI
 import PhotosUI
+import Photos
 
 struct DeckFormView: View {
     let deck: Deck
@@ -175,11 +176,25 @@ struct DeckFormView: View {
     private func loadSelectedImage(_ newValue: PhotosPickerItem?) {
         guard let newValue = newValue else { return }
         Task {
-            if let data = try? await newValue.loadTransferable(type: Data.self) {
-                imageData = data
+            do {
+                if let data = try await newValue.loadTransferable(type: Data.self) {
+                    DispatchQueue.main.async {
+                        self.imageData = data
+                    }
+                }
+            } catch {
+                print("Error loading image: \(error.localizedDescription)")
             }
         }
     }
+//    private func loadSelectedImage(_ newValue: PhotosPickerItem?) {
+//        guard let newValue = newValue else { return }
+//        Task {
+//            if let data = try? await newValue.loadTransferable(type: Data.self) {
+//                imageData = data
+//            }
+//        }
+//    }
 }
 
 
